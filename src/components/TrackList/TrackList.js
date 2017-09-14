@@ -6,8 +6,10 @@ class TrackList extends React.Component {
   render() {
     return (
       <div className="TrackList">
-        {this.props.tracks.map(track =>
-        {return <Track key={track.id} name={track.name} album={track.album} artist={track.artist} onAdd={this.props.onAdd} onRemove={this.props.onRemove} />})}
+        <Track />
+        <Track />
+        <Track />
+        <Track />
       </div>
     );
   }
@@ -15,4 +17,6 @@ class TrackList extends React.Component {
 
 export default TrackList;
 
-//{this.props.tracks.map(track => )}
+        /*
+        {this.props.tracks.map(track =>{return <Track key={track.id} name={track.name} album={track.album} artist={track.artist} onAdd={this.props.onAdd} onRemove={this.props.onRemove} />})}
+        */

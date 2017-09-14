@@ -4,6 +4,7 @@ import './App.css';
 import SearchBar from '../SearchBar/SearchBar';
 import SearchResults from '../SearchResults/SearchResults';
 import Playlist from '../Playlist/Playlist';
+import Spotify from '../util/Spotify';
 
 export const playlistName = "Test playlist";
 export const playlistTracks = [
@@ -21,17 +22,7 @@ export const playlistTracks = [
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { searchResults: [
-      {name: "Song 1",
-       artist: "Band 1",
-       album: "Album 1"},
-      {name: "Song 2",
-       artist: "Band 2",
-       album: "Album 2"},
-      {name: "Song 3",
-       artist: "Band 3",
-       album: "Album 3"}
-     ] };
+    this.state = { searchResults: [] };
      this.addTrack = this.addTrack.bind(this);
      this.removeTrack = this.removeTrack.bind(this);
      this.updatePlaylistName = this.updatePlaylistName.bind(this);
@@ -66,6 +57,7 @@ class App extends React.Component {
 
   search(term) {
     console.log(term);
+    Spotify.search(term);
   }
 
   render() {
