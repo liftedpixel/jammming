@@ -51,6 +51,9 @@ class App extends React.Component {
   }
 
   savePlaylist() {
+    console.log("saving playlist");
+    Spotify.savePlaylist(playlistName, playlistTracks);
+
     //generate array trackURIs from playlistTracks
     //pass trackURIs and playlistName to spotify
   }
@@ -63,7 +66,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <h1>Ja<span className="highlight">mmmmm</span>ing</h1>
+        <h1><a href="http://localhost:3000">Ja<span className="highlight">mmmmm</span>ing</a></h1>
         <div className="App">
           <SearchBar onSearch={this.search} />
           <div className="App-playlist">
