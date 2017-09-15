@@ -7,9 +7,15 @@ current issues
 -<Track /> is still static
 -<TrackList /> is still static
 -App.addTrack, removeTrack, and savePlaylist are not working
--searching for nothing crashes
 
 additional features to write about
 -show log in before searching instead of search bar if not logged in
 -says hello to user using username
 -track images
+
+works
+-getting token
+-getting user id
+-creating new playlist
+-saving tracks to playlist
+-search results to console
