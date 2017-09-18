@@ -4,12 +4,12 @@ import './App.css';
 import SearchBar from '../SearchBar/SearchBar';
 import SearchResults from '../SearchResults/SearchResults';
 import Playlist from '../Playlist/Playlist';
-import Spotify from '../util/Spotify';
+import Spotify from '../Spotify/Spotify';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
-     this.state = { searchResults: {}, playlistTracks: {}, playlistName: 'New Playlist' };
+     this.state = { searchResults: [], playlistTracks: {}, playlistName: 'New Playlist' };
      this.addTrack = this.addTrack.bind(this);
      this.removeTrack = this.removeTrack.bind(this);
      this.updatePlaylistName = this.updatePlaylistName.bind(this);
@@ -20,7 +20,7 @@ class App extends React.Component {
   addTrack(track) {
     let currentPlaylist = this.state.playlistTracks;
     if (!currentPlaylist.includes(track)) { currentPlaylist.push(track) };
-    this.setState({ playlistTracks: currentPlaylist });
+    this.setState({ playlistTracks: currentPlaylist, searchResults: [] });
   }
 
   removeTrack(track) {
@@ -42,7 +42,8 @@ class App extends React.Component {
 
   search(term) {
     console.log(term);
-    Spotify.search(term).then(results => { this.setState({ searchResults: results }) });
+    //Spotify.search(term).then(results => { this.setState({ searchResults: results }) });
+    Spotify.search(term).then(results => console.log(results));
   }
 
   render() {

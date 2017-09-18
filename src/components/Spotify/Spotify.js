@@ -2,8 +2,8 @@ import React from 'react';
 
 const clientId = 'ad355c80a87f4b19b3b5fa4100b0b6b4';
 const clientSecret = '75430b70f3ce462c94a477c24b1c4147';
-let accessToken = null;
-let ttl = null;
+let accessToken;
+let ttl;
 
 const Spotify = {
   getAccessToken() {
@@ -14,7 +14,7 @@ const Spotify = {
       accessToken = temp.toString().substring(13);
       temp = window.location.href.match(/expires_in=([^&]*)/);
       ttl = parseInt(temp.toString().substring(11));
-      window.setTimeout(() => accessToken = null, 5 * 1000);
+      window.setTimeout(() => accessToken = '', ttl * 1000);
       window.history.pushState('Access Token', null, '/');
       console.log(accessToken);
       return accessToken;
@@ -28,29 +28,25 @@ const Spotify = {
   },
 
   search(term) {
-    if (accessToken) {
-      const searchUrl = `https://api.spotify.com/v1/search?type=track&q=${term}`;
-      console.log(searchUrl);
-      const headers = { headers: { Authorization: `Bearer ${accessToken}` } };
-      return fetch(searchUrl, headers).then(response => response.json()).then(jsonResponse => {
-        let tracksArray = [];
-        if (jsonResponse.tracks) {
-          console.log(jsonResponse.tracks);
-          tracksArray = Array.from(jsonResponse.tracks.items);
-          return tracksArray.map(track => ({
-            id: track.id,
-            name: track.name,
-            artist: track.artists[0].name,
-            album: track.album.name,
-            uri: track.uri
-          }))
-        }
-      });
-    }
-    else {
-      accessToken = Spotify.getAccessToken();
-      Spotify.search(term);
-    }
+    accessToken = Spotify.getAccessToken();
+    const searchUrl = `https://api.spotify.com/v1/search?type=track&q=${term}`;
+    console.log(searchUrl);
+    const headers = { headers: { Authorization: `Bearer ${accessToken}` } };
+    fetch(searchUrl, headers).then(response => response.json()).then(jsonResponse => {
+      let tracksArray = [];
+      if (jsonResponse.tracks) {
+        //console.log(jsonResponse.tracks);
+        tracksArray = Array.from(jsonResponse.tracks.items);
+        console.log(tracksArray);
+      }
+      return tracksArray.map(track => ({
+        id: track.id,
+        name: track.name,
+        artist: track.artists[0].name,
+        album: track.album.name,
+        uri: track.uri
+      }));
+    });
   },
 
   savePlaylist(playlistName,playlistTracks) {
@@ -82,3 +78,16 @@ const Spotify = {
 };
 
 export default Spotify;
+
+
+/*
+
+return tracksArray.map(track => ({
+  id: track.id,
+  name: track.name,
+  artist: track.artists[0].name,
+  album: track.album.name,
+  uri: track.uri
+}))
+
+*/
