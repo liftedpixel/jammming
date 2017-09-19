@@ -4,6 +4,7 @@ const clientId = 'ad355c80a87f4b19b3b5fa4100b0b6b4';
 const clientSecret = '75430b70f3ce462c94a477c24b1c4147';
 let accessToken;
 let ttl;
+let tracksArray = [];
 
 const Spotify = {
   getAccessToken() {
@@ -33,20 +34,19 @@ const Spotify = {
     console.log(searchUrl);
     const headers = { headers: { Authorization: `Bearer ${accessToken}` } };
     fetch(searchUrl, headers).then(response => response.json()).then(jsonResponse => {
-      let tracksArray = [];
       if (jsonResponse.tracks) {
         //console.log(jsonResponse.tracks);
         tracksArray = Array.from(jsonResponse.tracks.items);
         console.log(tracksArray);
       }
-      return tracksArray.map(track => ({
-        id: track.id,
-        name: track.name,
-        artist: track.artists[0].name,
-        album: track.album.name,
-        uri: track.uri
-      }));
     });
+    return tracksArray.map(track => ({
+      id: track.id,
+      name: track.name,
+      artist: track.artists[0].name,
+      album: track.album.name,
+      uri: track.uri
+    }));
   },
 
   savePlaylist(playlistName,playlistTracks) {
