@@ -4,8 +4,8 @@ import Track from '../Track/Track';
 
 class TrackList extends React.Component {
   render() {
-    //let tracksArray = Array.from(this.props.tracks);
-    let tracksArray = [];
+    let tracksArray = Array.from(this.props.tracks);
+    //let tracksArray = [];
     console.log(tracksArray);
     return (
       <div className="TrackList">

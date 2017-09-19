@@ -33,25 +33,24 @@ const Spotify = {
     const searchUrl = `https://api.spotify.com/v1/search?type=track&q=${term}`;
     console.log(searchUrl);
     const headers = { headers: { Authorization: `Bearer ${accessToken}` } };
-    fetch(searchUrl, headers).then(response => response.json()).then(jsonResponse => {
-      if (jsonResponse.tracks) {
-        //console.log(jsonResponse.tracks);
-        tracksArray = Array.from(jsonResponse.tracks.items);
-        console.log(tracksArray);
+    return fetch(searchUrl, headers).then(response => response.json()).then(jsonResponse => {
+      if (!jsonResponse.tracks) {
+        return [];
       }
+      //console.log(jsonResponse.tracks);
+      return jsonResponse.tracks.items.map(track => ({
+        id: track.id,
+        name: track.name,
+        artist: track.artists[0].name,
+        album: track.album.name,
+        uri: track.uri
+      }));
     });
-    return tracksArray.map(track => ({
-      id: track.id,
-      name: track.name,
-      artist: track.artists[0].name,
-      album: track.album.name,
-      uri: track.uri
-    }));
   },
 
   savePlaylist(playlistName,playlistTracks) {
-    playlistName = 'Testing123';
-    playlistTracks = ["spotify:track:4iV5W9uYEdYUVa79Axb7Rh","spotify:track:1301WleyT98MSxVHPZCA6M"];
+    //playlistName = 'Testing123';
+    //playlistTracks = ["spotify:track:4iV5W9uYEdYUVa79Axb7Rh","spotify:track:1301WleyT98MSxVHPZCA6M"];
     if (!playlistName || !playlistTracks) { return }
     else {
       let userId = null;
