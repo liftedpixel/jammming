@@ -8,19 +8,20 @@ let tracksArray = [];
 
 const Spotify = {
   getAccessToken() {
-    if (accessToken) { console.log("already have token"); return accessToken; }
-    else if (window.location.href.match(/access_token=([^&]*)/)) {
-      console.log("saving token");
-      let temp = window.location.href.match(/access_token=([^&]*)/);
-      accessToken = temp.toString().substring(13);
-      temp = window.location.href.match(/expires_in=([^&]*)/);
-      ttl = parseInt(temp.toString().substring(11));
-      window.setTimeout(() => accessToken = '', ttl * 1000);
-      window.history.pushState('Access Token', null, '/');
+    if (!accessToken) {
       console.log(accessToken);
-      return accessToken;
-    }
-    else {
+      let temp = window.location.href.match(/access_token=([^&]*)/);
+      if (temp) {
+        console.log("saving token");
+        accessToken = temp.toString().substring(13);
+        temp = window.location.href.match(/expires_in=([^&]*)/);
+        ttl = parseInt(temp.toString().substring(11));
+        window.setTimeout(() => accessToken = '', ttl * 1000);
+        window.history.pushState('Access Token', null, '/');
+        window.location = 'http://localhost:3000';
+        console.log("getaccesstoken(): " + accessToken);
+        return accessToken;
+      }
       const redirectUri = 'http://localhost:3000';
       const scope = 'user-read-private playlist-modify-public';
       const redirectUrl = `https://accounts.spotify.com/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}&response_type=token`;
