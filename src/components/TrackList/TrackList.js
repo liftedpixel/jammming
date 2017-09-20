@@ -5,10 +5,10 @@ import Track from '../Track/Track';
 class TrackList extends React.Component {
   render() {
     console.log("tracklist.props.tracks: " + this.props.tracks);
-    if (!this.props.tracks) {console.log("beep");}
+    let trackArray = this.props.tracks;
     return (
       <div className="TrackList">
-        <Track name="Song title" album="Album name" artist="Artist" />
+        {trackArray.map(track =>{<Track key={track.id} name={track.name} album={track.album} artist={track.artist} onAdd={this.props.onAdd} onRemove={this.props.onRemove} />})}
       </div>
     );
   }
@@ -17,6 +17,5 @@ class TrackList extends React.Component {
 export default TrackList;
 
 /*
-{this.props.tracks.map(track =>{<Track key={track.id} name={track.name} album={track.album} artist={track.artist} onAdd={this.props.onAdd} onRemove={this.props.onRemove} />})}
 
 */

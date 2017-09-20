@@ -1,7 +1,6 @@
 import React from 'react';
+import {clientId, clientSecret} from './secret';
 
-const clientId = 'ad355c80a87f4b19b3b5fa4100b0b6b4';
-const clientSecret = '75430b70f3ce462c94a477c24b1c4147';
 let accessToken;
 let ttl;
 let tracksArray = [];
@@ -9,7 +8,6 @@ let tracksArray = [];
 const Spotify = {
   getAccessToken() {
     if (!accessToken) {
-      console.log(accessToken);
       let temp = window.location.href.match(/access_token=([^&]*)/);
       if (temp) {
         console.log("saving token");
@@ -18,7 +16,6 @@ const Spotify = {
         ttl = parseInt(temp.toString().substring(11));
         window.setTimeout(() => accessToken = '', ttl * 1000);
         window.history.pushState('Access Token', null, '/');
-        window.location = 'http://localhost:3000';
         console.log("getaccesstoken(): " + accessToken);
         return accessToken;
       }
@@ -27,6 +24,7 @@ const Spotify = {
       const redirectUrl = `https://accounts.spotify.com/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}&response_type=token`;
       window.location = redirectUrl;
     }
+    return accessToken;
   },
 
   search(term) {

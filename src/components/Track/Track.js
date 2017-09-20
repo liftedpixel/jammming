@@ -9,8 +9,8 @@ class Track extends React.Component {
   }
 
   renderAction() {
-    if (this.props.isRemoval) { return <a className="Track-action" onClick={this.removeTrack}>-</a>; }
-    else { return <a className="Track-action" onClick={this.addTrack}>+</a>; }
+    if (this.props.isRemoval) { return <a className="Track-action" onClick={this.removeTrack}>-</a> }
+    else { return <a className="Track-action" onClick={this.addTrack}>+</a> }
   }
 
   addTrack() {
@@ -24,9 +24,11 @@ class Track extends React.Component {
   render() {
     return (
       <div className="Track">
-        {<div className="Track-information"><h3>{this.props.name}</h3>
-        <p>{this.props.artist} | {this.props.album}</p></div>}
-        { this.renderAction() }
+        {<div className="Track-information">
+          <h3>{this.props.name}</h3>
+          <p>{this.props.artist} | {this.props.album}</p>
+        </div>}
+       { this.renderAction() }
       </div>
     );
   }
