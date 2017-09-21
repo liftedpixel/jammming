@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import './App.css';
 import SearchBar from '../SearchBar/SearchBar';
 import SearchResults from '../SearchResults/SearchResults';
@@ -33,22 +32,21 @@ class App extends React.Component {
   }
 
   savePlaylist() {
-    let uriArray = this.state.playlistTracks.map(track => track.uri);
-    console.log(this.state.playlistName);
-    console.log(uriArray);
+    let playlistArray = Array.from(this.state.playlistTracks);
+    console.log("playlistArray: " + playlistArray);
+    let uriArray = playlistArray.map(track => track.uri);
     Spotify.savePlaylist(this.state.playlistName, uriArray);
     this.setState({ playlistName: 'New Playlist', searchResults: [], playlistTracks: {} });
   }
 
   search(term) {
-    let theResults;
     Spotify.search(term).then(results => Array.from(results)).then(trackArray => {this.setState({ searchResults: trackArray })});
   }
 
   render() {
     return (
       <div>
-        <h1><a href="http://localhost:3000">Ja<span className="highlight">mmmmm</span>ing</a></h1>
+        <h1>Ja<span className="highlight">mmmmm</span>ing</h1>
         <div className="App">
           <SearchBar onSearch={this.search} />
           <div className="App-playlist">

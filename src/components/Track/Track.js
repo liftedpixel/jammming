@@ -24,14 +24,14 @@ class Track extends React.Component {
   render() {
     return (
       <div className="Track">
-        {<div className="Track-information">
-          <h3>{this.props.name}</h3>
-          <p>{this.props.artist} | {this.props.album}</p>
-        </div>}
-       { this.renderAction() }
+        <div className="Track-information">
+          <h3>name: {this.props.name}</h3>
+          <p>artist: {this.props.artist} | album: {this.props.album}</p>
+        </div>
+        { this.renderAction() }
       </div>
     );
-  }
-};
+  };
+}
 
 export default Track;
