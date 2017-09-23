@@ -8,7 +8,7 @@ import Spotify from '../Spotify/Spotify';
 class App extends React.Component {
   constructor(props) {
     super(props);
-     this.state = { searchResults: [], playlistTracks: {}, playlistName: 'New Playlist' };
+     this.state = { searchResults: [""], playlistTracks: {}, playlistName: 'New Playlist' };
      this.addTrack = this.addTrack.bind(this);
      this.removeTrack = this.removeTrack.bind(this);
      this.updatePlaylistName = this.updatePlaylistName.bind(this);
@@ -17,14 +17,24 @@ class App extends React.Component {
   }
 
   addTrack(track) {
-    let currentPlaylist = this.state.playlistTracks;
-    if (!currentPlaylist.includes(track)) { currentPlaylist.push(track) };
-    this.setState({ playlistTracks: currentPlaylist, searchResults: [] });
+    console.log("App.addTrack track: " + track);
+    let currentPlaylistArray = Array.from(this.state.playlistTracks);
+    console.log("currentPlaylistArray: " + currentPlaylistArray);
+    let flag = false;
+    currentPlaylistArray.forEach(checkTrack => {
+      console.log("checking " + checkTrack.name);
+      if (track.id == checkTrack.id) { flag = true; }
+      if (!flag) {
+        console.log("adding track: " + checkTrack.name);
+        currentPlaylistArray.push(track);
+        this.setState({ playlistTracks: currentPlaylistArray });
+      }
+    });
   }
 
   removeTrack(track) {
-    let currentPlaylist = this.state.playlistTracks;
-    this.setState({ playlistTracks: currentPlaylist.filter(checkTrack => checkTrack.id !== track.id) });
+    let currentPlaylistArray = Array.from(this.state.playlistTracks);
+    this.setState({ playlistTracks: currentPlaylistArray.filter(checkTrack => checkTrack.id !== track.id) });
   }
 
   updatePlaylistName(name) {
@@ -46,7 +56,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <h1>Ja<span className="highlight">mmmmm</span>ing</h1>
+        <h1>Ja<span className="highlight">mmmmmmmmmmmmmmmmm</span>ing</h1>
         <div className="App">
           <SearchBar onSearch={this.search} />
           <div className="App-playlist">
