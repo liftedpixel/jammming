@@ -1,1 +1,1 @@
-https://api.spotify.com/v1/me
+https://docs.google.com/document/d/1a9n_EUzUqWPFH_FN9jbbDq1_gxMSgLqSX3CmfLXf4PQ/edit?usp=sharing
