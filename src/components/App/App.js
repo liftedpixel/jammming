@@ -17,19 +17,11 @@ class App extends React.Component {
   }
 
   addTrack(track) {
-    console.log("App.addTrack track: " + track);
+    console.log("App.addTrack track: " + track.name);
     let currentPlaylistArray = this.state.playlistTracks;
-    console.log("currentPlaylistArray: " + currentPlaylistArray);
-    let flag = false;
-    currentPlaylistArray.forEach(checkTrack => {
-      console.log("checking " + checkTrack.name);
-      if (track.id == checkTrack.id) { flag = true; }
-      if (!flag) {
-        console.log("adding track: " + checkTrack.name);
-        currentPlaylistArray.push(track);
-        this.setState({ playlistTracks: currentPlaylistArray });
-      }
-    });
+    currentPlaylistArray.push(track);
+    console.log("App.addTrack currentPlaylistArray: " + currentPlaylistArray);
+    this.setState({ playlistTracks: currentPlaylistArray });
   }
 
   removeTrack(track) {
@@ -43,7 +35,7 @@ class App extends React.Component {
 
   savePlaylist() {
     let playlistArray = this.state.playlistTracks;
-    console.log("playlistArray: " + playlistArray);
+    console.log("App.savePlaylist playlistArray: " + playlistArray);
     let uriArray = playlistArray.map(track => track.uri);
     Spotify.savePlaylist(this.state.playlistName, uriArray);
     this.setState({ playlistName: 'New Playlist', searchResults: [], playlistTracks: [] });
@@ -61,7 +53,7 @@ class App extends React.Component {
           <SearchBar onSearch={this.search} />
           <div className="App-playlist">
             <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} onRemove={this.removeTrack} />
-            <Playlist playlistTracks={this.state.playlistTracks} name={this.state.playlistName} onNameChange={this.updatePlaylistName} onSave={this.savePlaylist} />
+            <Playlist playlistTracks={this.state.playlistTracks} name={this.state.playlistName} onNameChange={this.updatePlaylistName} onSave={this.savePlaylist} onAdd={this.addTrack} onRemove={this.removeTrack} />
           </div>
         </div>
       </div>
