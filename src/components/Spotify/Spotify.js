@@ -4,6 +4,7 @@ import {clientId, clientSecret} from './secret';
 let accessToken;
 let ttl;
 let tracksArray = [];
+const siteURL = 'http://jammmmmmmmmmmming.surge.sh';
 
 const Spotify = {
   getAccessToken() {
@@ -20,9 +21,8 @@ const Spotify = {
         window.history.pushState('Access Token', null, '/');
       }
       else {
-        const redirectUri = 'http://localhost:3000';
         const scope = 'user-read-private playlist-modify-public';
-        const redirectUrl = `https://accounts.spotify.com/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}&response_type=token`;
+        const redirectUrl = `https://accounts.spotify.com/authorize?client_id=${clientId}&redirect_uri=${siteURL}&scope=${scope}&response_type=token`;
         window.location = redirectUrl;
       }
     }
