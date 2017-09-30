@@ -4,7 +4,7 @@ import {clientId, clientSecret} from './secret';
 let accessToken;
 let ttl;
 let tracksArray = [];
-const siteURL = 'http://jammmmmmmmmmmming.surge.sh';
+const siteURL = 'http://jammmmmmmmmmmming.surge.sh/';
 
 const Spotify = {
   getAccessToken() {
