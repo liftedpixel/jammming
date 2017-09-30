@@ -33,9 +33,7 @@ const Spotify = {
     const searchUrl = `https://api.spotify.com/v1/search?type=track&q=${term}`;
     const headers = { headers: { Authorization: `Bearer ${accessToken}` } };
     return fetch(searchUrl, headers).then(response => response.json()).then(jsonResponse => {
-      if (!jsonResponse.tracks) {
-        return [];
-      }
+      if (!jsonResponse.tracks) { return []; }
       return jsonResponse.tracks.items.map(track => ({
         id: track.id,
         name: track.name,
@@ -47,29 +45,27 @@ const Spotify = {
   },
 
   savePlaylist(playlistName,playlistTracks) {
-    console.log("playlistName: " + playlistName);
-    console.log("playlistTracks: " + playlistTracks);
     if (!playlistName || !playlistTracks) { return }
     else {
       let userId;
       let url = 'https://api.spotify.com/v1/me';
       let headers = { headers: { Authorization: `Bearer ${accessToken}` } };
-      //get userID
+      // get userID //
       return fetch(url, headers).then(response => response.json()).then(jsonResponse => {
         userId = jsonResponse.id;
         url = `https://api.spotify.com/v1/users/${userId}/playlists`;
         headers = { Authorization: `Bearer ${accessToken}` };
         let body = { name: playlistName };
         let thePost = { headers: headers, method: 'POST', body: JSON.stringify(body) };
-        //get playlistID
+        // get playlistID //
         return fetch(url, thePost).then(response => response.json()
           ).then(jsonResponse => jsonResponse.id).then(playlistId => {
           console.log("Spotify.playlistid: " + playlistId);
           url = `https://api.spotify.com/v1/users/${userId}/playlists/${playlistId}/tracks`;
           body = { uris: playlistTracks };
           thePost = { headers: headers, method: 'POST', body: JSON.stringify(body) };
-          //save track uris
-          return fetch(url, thePost).then(response => console.log("Spotify.saveplaylist(): " + response));
+          // save playlistTracks //
+          return fetch(url, thePost).then(response => console.log("Spotify said: " + response));
         });
       });
     }

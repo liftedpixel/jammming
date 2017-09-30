@@ -31,7 +31,6 @@ class Track extends React.Component {
   }
 
   addTrack() {
-    console.log("Track.props.track.name: " + this.props.track.name);
     this.props.onAdd(this.props.track);
   }
 

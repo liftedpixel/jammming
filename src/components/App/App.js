@@ -17,10 +17,8 @@ class App extends React.Component {
   }
 
   addTrack(track) {
-    console.log("App.addTrack track: " + track.name);
     let currentPlaylistArray = this.state.playlistTracks;
     currentPlaylistArray.push(track);
-    console.log("App.addTrack currentPlaylistArray: " + currentPlaylistArray);
     this.setState({ playlistTracks: currentPlaylistArray });
   }
 
@@ -35,10 +33,10 @@ class App extends React.Component {
 
   savePlaylist() {
     let playlistArray = this.state.playlistTracks;
-    console.log("App.savePlaylist playlistArray: " + playlistArray);
     let uriArray = playlistArray.map(track => track.uri);
     Spotify.savePlaylist(this.state.playlistName, uriArray);
-    this.setState({ playlistName: 'New Playlist', searchResults: [], playlistTracks: [] });
+    updatePlaylistName('New Playlist');
+    this.setState({ searchResults: [], playlistTracks: [] });
   }
 
   search(term) {
@@ -52,8 +50,19 @@ class App extends React.Component {
         <div className="App">
           <SearchBar onSearch={this.search} />
           <div className="App-playlist">
-            <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} onRemove={this.removeTrack} />
-            <Playlist playlistTracks={this.state.playlistTracks} name={this.state.playlistName} onNameChange={this.updatePlaylistName} onSave={this.savePlaylist} onAdd={this.addTrack} onRemove={this.removeTrack} />
+            <SearchResults
+              searchResults={this.state.searchResults}
+              onAdd={this.addTrack}
+              onRemove={this.removeTrack}
+            />
+            <Playlist
+              playlistTracks={this.state.playlistTracks}
+              name={this.state.playlistName}
+              onNameChange={this.updatePlaylistName}
+              onSave={this.savePlaylist}
+              onAdd={this.addTrack}
+              onRemove={this.removeTrack}
+            />
           </div>
         </div>
       </div>
