@@ -1,7 +1,7 @@
 import React from 'react';
 import './Track.css';
 
-class Track extends React.Component {
+export const Track {
   constructor(props) {
     super(props);
     this.addTrack = this.addTrack.bind(this);
@@ -50,5 +50,3 @@ class Track extends React.Component {
     );
   };
 }
-
-export default Track;

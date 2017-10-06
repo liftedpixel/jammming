@@ -3,6 +3,9 @@ jammmmmmmmmmmming.surge.sh (12)
 
 it searches the SPOTIFY API and lets you make a PLAYLIST that you can save to your ACCOUNT now with an easy to remember URL
 
+NOTE: My API keys are not included. This app is currently looking for the file 'src/components/Spotify/secret.js' with the exported variables clientId and clientSecret. Please provide your own, or check out the link above for a working demo.
+
+
 current issues
 index.css? - some bars have shown up above and below the header
 spotify.js - page resets after the first search

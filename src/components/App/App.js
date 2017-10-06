@@ -17,8 +17,7 @@ class App extends React.Component {
   }
 
   addTrack(track) {
-    let currentPlaylistArray = this.state.playlistTracks;
-    currentPlaylistArray.push(track);
+    let currentPlaylistArray = this.state.playlistTracks.concat(track);
     this.setState({ playlistTracks: currentPlaylistArray });
   }
 
@@ -35,8 +34,7 @@ class App extends React.Component {
     let playlistArray = this.state.playlistTracks;
     let uriArray = playlistArray.map(track => track.uri);
     Spotify.savePlaylist(this.state.playlistName, uriArray);
-    this.updatePlaylistName('New Playlist');
-    this.setState({ searchResults: [], playlistTracks: [] });
+    this.setState({ playlistTracks: [], playlistName: 'New Playlist' });
   }
 
   search(term) {

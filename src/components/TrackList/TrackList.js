@@ -3,7 +3,7 @@ import './TrackList.css';
 import Track from '../Track/Track';
 let trackArray;
 
-class TrackList extends React.Component {
+export const TrackList {
   mapTracks() {
     trackArray = Array.from(this.props.tracks);
     console.log("TrackList trackArray: " + trackArray);
@@ -27,5 +27,3 @@ class TrackList extends React.Component {
     );
   }
 };
-
-export default TrackList;

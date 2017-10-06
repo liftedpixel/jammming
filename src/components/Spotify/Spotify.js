@@ -6,7 +6,10 @@ let ttl;
 let tracksArray = [];
 const siteURL = 'http://jammmmmmmmmmmming.surge.sh/';
 
-const Spotify = {
+const apiURL = 'https://api.spotify.com/v1';
+const headers = { headers: { Authorization: `Bearer ${accessToken}` } };
+
+export const Spotify = {
   getAccessToken() {
     if (accessToken) {
       return new Promise(resolve => resolve(accessToken));
@@ -30,8 +33,7 @@ const Spotify = {
 
   search(term) {
     if (!accessToken) { Spotify.getAccessToken(); }
-    const searchUrl = `https://api.spotify.com/v1/search?type=track&q=${term}`;
-    const headers = { headers: { Authorization: `Bearer ${accessToken}` } };
+    const searchUrl = `${apiURL}/search?type=track&q=${term}`;
     return fetch(searchUrl, headers).then(response => response.json()).then(jsonResponse => {
       if (!jsonResponse.tracks) { return []; }
       return jsonResponse.tracks.items.map(track => ({
@@ -48,20 +50,18 @@ const Spotify = {
     if (!playlistName || !playlistTracks) { return }
     else {
       let userId;
-      let url = 'https://api.spotify.com/v1/me';
-      let headers = { headers: { Authorization: `Bearer ${accessToken}` } };
+      let url = 'me';
       // get userID //
       return fetch(url, headers).then(response => response.json()).then(jsonResponse => {
         userId = jsonResponse.id;
-        url = `https://api.spotify.com/v1/users/${userId}/playlists`;
-        headers = { Authorization: `Bearer ${accessToken}` };
+        url = `${apiURL}/users/${userId}/playlists`;
         let body = { name: playlistName };
         let thePost = { headers: headers, method: 'POST', body: JSON.stringify(body) };
         // get playlistID //
         return fetch(url, thePost).then(response => response.json()
           ).then(jsonResponse => jsonResponse.id).then(playlistId => {
           console.log("Spotify.playlistid: " + playlistId);
-          url = `https://api.spotify.com/v1/users/${userId}/playlists/${playlistId}/tracks`;
+          url = `${apiURL}/users/${userId}/playlists/${playlistId}/tracks`;
           body = { uris: playlistTracks };
           thePost = { headers: headers, method: 'POST', body: JSON.stringify(body) };
           // save playlistTracks //
@@ -71,5 +71,3 @@ const Spotify = {
     }
   }
 };
-
-export default Spotify;
